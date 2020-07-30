@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "339230903574",
+    "firebase_url": "https://dailyblog-b5495.firebaseio.com",
+    "project_id": "dailyblog-b5495",
+    "storage_bucket": "dailyblog-b5495.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339230903574:android:bda9e59046d26013be5437",
+        "android_client_info": {
+          "package_name": "com.example.DailyBlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339230903574-m84p9jsejbv8v7rgajhmldu2rjt0rmj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQutW3XwlQEIVbwLtUvVjsGVT4RGmEsrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339230903574-m84p9jsejbv8v7rgajhmldu2rjt0rmj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
