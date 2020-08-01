@@ -114,11 +114,11 @@ class _CreateBlogState extends State<CreateBlog> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            height: 150,
+                            height: 170,
                           )
                         : Container(
                             margin: EdgeInsets.symmetric(horizontal: 16),
-                            height: 150,
+                            height: 170,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(6)),
