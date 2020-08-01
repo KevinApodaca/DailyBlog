@@ -87,7 +87,8 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateBlog()));
               },
-              child: Icon(Icons.add),
+              child:
+                  Tooltip(message: 'Create a new Blog', child: Icon(Icons.add)),
             )
           ],
         ),
@@ -97,7 +98,7 @@ class _HomeState extends State<Home> {
 }
 
 class BlogTile extends StatelessWidget {
-  String imgUrl, title, desc, author;
+  final String imgUrl, title, desc, author;
 
   BlogTile(
       {@required this.imgUrl,
@@ -113,12 +114,13 @@ class BlogTile extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: CachedNetworkImage(
-                imageUrl: imgUrl,
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width,
-              )),
+            borderRadius: BorderRadius.circular(6),
+            child: CachedNetworkImage(
+              imageUrl: imgUrl,
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
           Container(
             height: 170,
             decoration: BoxDecoration(
