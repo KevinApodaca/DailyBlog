@@ -1,7 +1,7 @@
 import 'package:DailyBlog/services/crud.dart';
 import 'package:DailyBlog/views/create_blog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,25 +10,33 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   CrudMethods crudMethods = new CrudMethods();
-  QuerySnapshot blogSnapshot;
+  Stream blogStream;
 
   Widget BlogList() {
     return Container(
-      child: blogSnapshot != null
+      child: blogStream != null
           ? Column(
               children: <Widget>[
-                ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: blogSnapshot.documents.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return BlogTile(
-                        author: blogSnapshot.documents[index].data['Author'],
-                        title: blogSnapshot.documents[index].data['Title'],
-                        desc: blogSnapshot.documents[index].data['Description'],
-                        imgUrl: blogSnapshot.documents[index].data['imgUrl'],
-                      );
-                    })
+                StreamBuilder(
+                  stream: blogStream,
+                  builder: (context, snapshot) {
+                    return ListView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: snapshot.data.documents.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return BlogTile(
+                            author:
+                                snapshot.data.documents[index].data['Author'],
+                            title: snapshot.data.documents[index].data['Title'],
+                            desc: snapshot
+                                .data.documents[index].data['Description'],
+                            imgUrl:
+                                snapshot.data.documents[index].data['imgUrl'],
+                          );
+                        });
+                  },
+                )
               ],
             )
           : Container(
@@ -40,10 +48,12 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    super.initState();
     crudMethods.getData().then((result) {
-      blogSnapshot = result;
+      setState(() {
+        blogStream = result;
+      });
     });
+    super.initState();
   }
 
   @override
@@ -77,7 +87,8 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateBlog()));
               },
-              child: Icon(Icons.add),
+              child:
+                  Tooltip(message: 'Create a new Blog', child: Icon(Icons.add)),
             )
           ],
         ),
@@ -87,7 +98,7 @@ class _HomeState extends State<Home> {
 }
 
 class BlogTile extends StatelessWidget {
-  String imgUrl, title, desc, author;
+  final String imgUrl, title, desc, author;
 
   BlogTile(
       {@required this.imgUrl,
@@ -103,12 +114,13 @@ class BlogTile extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.network(
-                imgUrl,
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width,
-              )),
+            borderRadius: BorderRadius.circular(6),
+            child: CachedNetworkImage(
+              imageUrl: imgUrl,
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
           Container(
             height: 170,
             decoration: BoxDecoration(
@@ -124,14 +136,14 @@ class BlogTile extends StatelessWidget {
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
                   height: 4,
                 ),
                 Text(
                   desc,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                 ),
                 SizedBox(
                   height: 4,
