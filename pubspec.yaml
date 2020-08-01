@@ -26,8 +26,8 @@ dependencies:
   image_picker: ^0.6.7+4
   firebase_storage: ^3.1.6
   random_string: ^2.1.0
-  firebase: ^7.3.0
   cloud_firestore: ^0.13.7
+  cached_network_image: ^2.2.0+1
 
 
 
