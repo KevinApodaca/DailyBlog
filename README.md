@@ -20,7 +20,7 @@ This app lets you create new blogs with images, and pull your previous blogs for
 
 ## Features
 
-I implemented the following features to NowNews:
+I implemented the following features to DailyBlogs:
 
 * Live updates / refresh
 * Image Permissions
